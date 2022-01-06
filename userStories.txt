@@ -8,3 +8,6 @@
 3. As a user, I wnt to show a list of movies that I have created.
     console.log the array of movies
 
+4. As a user, I want to delete a movie from my collection
+   - Delete movies as an object (include title and actor name)
+   

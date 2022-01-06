@@ -1,12 +1,14 @@
 const fs = require("fs");
 const { array } = require("yargs");
+require("dotenv").config()
 
-const addMovie = (movieArr, movieObj) => {
+
+const addMovie = async (collection, movieObj) => {
     // console.log(movieObj)
     try {
-        movieArr.push(movieObj);
-        const stringyObj = JSON.stringify(movieArr)
-        fs.writeFileSync('./storage.json', stringyObj);
+        await collection.insertOne(movieObj);
+        console.log(`Succesfully added ${movieObj.title}.`);
+        
     } catch (error) {
 
     }

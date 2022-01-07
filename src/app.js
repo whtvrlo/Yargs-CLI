@@ -1,30 +1,34 @@
 const yargs = require("yargs");
-const fs = require("fs")
-const { addMovie, deleteMovie, listMovies } = require("./utils/index.js");
+const { addMovie, listMovies } = require("./utils/index.js");
+
 const connection = require("./db/connection.js");
 
-const command = process.argv[2];
+const command = yargs.argv._[0];
 
 
 const app = async  (args) => {
-    console.log("app.js hit")
-
-      try {
+    try {
           if (command === "add") {
-            const movieObj = {title: args.title, actor: args.actor};
-            // console.log("it works!")
-            await connection( addMovie, movieObj )
-            console.log("after connection")
-            // addMovie(movieArr, { title: yargs.argv.title , actor: yargs.argv.actor })
-            }
-            // } else if (process.argv[2] === 'list') {
-            //     listMovies();
-            // } else if (process.argv[2] === 'delete'){
-            //     deleteMovie(movieArr, { title: yargs.argv.title , actor: yargs.argv.actor })
-                
-
-            // }
+            await addMovie({title: args.title, actor: args.actor})
             
+
+            } else if (command === "list") {
+            await connection ( listMovies )
+            // } else if (command === "delete") {
+            //   const movieObj = {title: args.title, actor: args.actor}
+            //   await connection ( movieObj )
+            //   console.log (movieObj)}
+
+
+            // } else if (command === "update") {
+            // const updateObj = { title: args.title, updateValue: args.updateValue }
+                                
+                                
+                                                    
+// "delete" --title="thor" --actor="chris"
+            }
+            
+        
         } catch (error) {
         console.log(error);
         }

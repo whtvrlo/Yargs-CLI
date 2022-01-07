@@ -1,58 +1,82 @@
 const fs = require("fs");
-const { array } = require("yargs");
-require("dotenv").config()
+const Movie = require("../models/models")
+const mongoose = require("mongoose");
 
 
-const addMovie = async (collection, movieObj) => {
-    // console.log(movieObj)
+const addMovie = async (movieObj) => {
     try {
-        await collection.insertOne(movieObj);
-        console.log(`Succesfully added ${movieObj.title}.`);
+        const newMovie = new Movie(movieObj)
+        await newMovie.save();
+        console.log("new movie:", newMovie);
+
         
     } catch (error) {
+        displayInfo(error)
 
     }
 }   
 
-const deleteMovie = (movieArr, movieObj) => {
-    // console.log("which movie would you likes to delete")
-    movieArr.slice(movieObj);
-    console.log(movieObj)
-    // user command =           node src/app.js "delete" --title="deer hunter" --actor="meryl streep"
-    // newMovieArr = 
-    let index = movieArr.indexOf(movieObj)
-     try {
-        (index !== -1) 
-        movieArr.splice(index, 1);
-        console.log(movieArr);
-        const stringyObj = JSON.stringify(movieArr)
-        fs.writeFileSync('./storage.json', stringyObj);
-        
-    } catch (error) {
-        console.log(error)
-    }
-}
+// const deleteMovie = async (collection, movieObj) => {
+//     console.log(movieObj)
+// }
 
-const listMovies = (movieArr) => {
+const listMovies = async (collection) => {
     try {
-        // movieArr = JSON.parse(fs.readFileSync('./storage.json'));
-        // console.log("it works")
-        // console.log(movieArr)
-        console.log(JSON.parse(fs.readFileSync('./storage.json')))
-        // const parseArr = JSON.parse(movieArr)
-        // console.log(parseArr)
-
-        
-    
-        
+        console.log(await collection.find({}).toArray()); 
     } catch (error) {
         console.log(error);
-        
     }
 }
+
+// const updateMovie = async (collection, updateObj) => {
+//     try {
+//       await collection.updateOne(filter, updateObj)
+//       console.log(collection.updateOne(filter,updateObj))
+//         // create filter for a movie to update
+//         const updateObj = {
+//            $set: {
+//                title: args.title
+//            }
+           
+//         };
+    
+
+      
+
+
+     
+        
+
+//     } catch (error) {
+//         console.log(error)
+//     }
+// }
+
+
+
+//// old delete function
+// const deleteMovie = (collection) => {
+//     // console.log("which movie would you likes to delete")
+//     movieArr.slice(movieObj);
+//     console.log(movieObj)
+//     // user command =           node src/app.js "delete" --title="deer hunter" --actor="meryl streep"
+//     // newMovieArr = 
+//     let index = movieArr.indexOf(movieObj)
+//      try {
+//         (index !== -1) 
+//         movieArr.splice(index, 1);
+//         console.log(movieArr);
+//         const stringyObj = JSON.stringify(movieArr)
+//         fs.writeFileSync('./storage.json', stringyObj);
+        
+//     } catch (error) {
+//         console.log(error)
+//     }
+// }
+
 
 module.exports = {
     addMovie,
-    deleteMovie,
-    listMovies
+    listMovies,
+    // deleteMovie
 }

@@ -1,5 +1,5 @@
 const yargs = require("yargs");
-const { addMovie, listMovies } = require("./utils/index.js");
+const { addMovie, listMovies, deleteMovie } = require("./utils/index.js");
 
 const connection = require("./db/connection.js");
 
@@ -15,6 +15,9 @@ const app = async  (args) => {
             } else if (command === "list") {
             await listMovies();
 
+            } else if ( command === "delete") {
+              await deleteMovie({title: args.title})
+              // await deleteMovie({title: args.title})
             }
             
         

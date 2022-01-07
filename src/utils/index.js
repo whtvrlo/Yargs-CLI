@@ -3,7 +3,7 @@ const Movie = require("../models/models")
 const mongoose = require("mongoose");
 
 
-const addMovie = async (movieObj) => {
+const addMovie = async ( movieObj ) => {
     try {
         const newMovie = new Movie(movieObj)
         await newMovie.save();
@@ -14,11 +14,19 @@ const addMovie = async (movieObj) => {
         displayInfo(error)
 
     }
-}   
+}  
 
-// const deleteMovie = async (collection, movieObj) => {
-//     console.log(movieObj)
-// }
+const deleteMovie = async ( title ) => {
+    try {
+        await Movie.deleteOne(title)
+        console.log(Movie.deleteOne)
+
+    } catch (error) {
+        displayInfo(error)
+    }
+
+    
+}
 
 const listMovies = async () => {
     try {
@@ -28,12 +36,11 @@ const listMovies = async () => {
     } catch (error) {
         console.log(movie)
     }
-    
-
 }
+
 
 module.exports = {
     addMovie,
     listMovies,
-    // deleteMovie
+    deleteMovie
 }

@@ -13,19 +13,8 @@ const app = async  (args) => {
             
 
             } else if (command === "list") {
-            await connection ( listMovies )
-            // } else if (command === "delete") {
-            //   const movieObj = {title: args.title, actor: args.actor}
-            //   await connection ( movieObj )
-            //   console.log (movieObj)}
+            await listMovies();
 
-
-            // } else if (command === "update") {
-            // const updateObj = { title: args.title, updateValue: args.updateValue }
-                                
-                                
-                                                    
-// "delete" --title="thor" --actor="chris"
             }
             
         
